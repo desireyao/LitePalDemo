@@ -1,5 +1,6 @@
 package com.litepaldemo.model;
 
+import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
 
 /**
@@ -10,17 +11,12 @@ import org.litepal.crud.DataSupport;
  * Description:
  */
 public class User extends DataSupport {
-    private long id;
+
     private String name;
+
     private int age;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    private String id_card;
 
     public String getName() {
         return name;
@@ -36,5 +32,22 @@ public class User extends DataSupport {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getId_card() {
+        return id_card;
+    }
+
+    public void setId_card(String id_card) {
+        this.id_card = id_card;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", id_card='" + id_card + '\'' +
+                '}';
     }
 }
