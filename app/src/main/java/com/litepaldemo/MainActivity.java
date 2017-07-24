@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button btn_insert;
     private Button btn_delete;
+    private Button btn_update;
     private Button btn_query;
 
     private int count;
@@ -36,6 +37,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btn_delete = (Button) findViewById(R.id.btn_delete);
         btn_delete.setOnClickListener(this);
+
+        btn_update = (Button) findViewById(R.id.btn_update);
+        btn_update.setOnClickListener(this);
 
         btn_query = (Button) findViewById(R.id.btn_query);
         btn_query.setOnClickListener(this);
@@ -70,13 +74,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         user.setAge(10 + count);
         user.setId_card("34088119910818" + count);
 
-        UserInfo userInfo = new UserInfo();
-        userInfo.setId_card(user.getId_card());
-        userInfo.setAddress("安徽合肥");
-        userInfo.setCountry("中国");
-        userInfo.saveOrUpdate();
+//        UserInfo userInfo = new UserInfo();
+//        userInfo.setId_card(user.getId_card());
+//        userInfo.setAddress("安徽合肥");
+//        userInfo.setCountry("中国");
+//        userInfo.saveOrUpdate();
 
-        boolean b = user.saveOrUpdate();
+        boolean b = user.save();
         Toast.makeText(getApplicationContext(), b ? "数据保存成功" : "数据保存失败", Toast.LENGTH_SHORT).show();
 
 //        boolean b = user.saveOrUpdate();
@@ -118,7 +122,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void update() {
-
+        User user = new User();
+        user.setAge(99);
+        boolean success = user.saveOrUpdate("name = ?" , "name_1");
+        Toast.makeText(getApplicationContext(),success?"修改成功":"修改失败",Toast.LENGTH_SHORT).show();
     }
 
     private void query() {
@@ -131,8 +138,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            }
 //        });
 
-        User user = DataSupport.findLast(User.class);
-        List<UserInfo> userInfos = DataSupport.where("id_card = ?", user.getId_card()).find(UserInfo.class);
-        Log.e(TAG, "userInfos = " + userInfos);
+//        User user = DataSupport.findLast(User.class);
+//        List<UserInfo> userInfos = DataSupport.where("id_card = ?", user.getId_card()).find(UserInfo.class);
+//        Log.e(TAG, "userInfos = " + userInfos);
+
+        User user = DataSupport.order("name").findFirst(User.class);
+        Log.e(TAG, "user--->" + user);
     }
 }
